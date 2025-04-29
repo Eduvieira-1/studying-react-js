@@ -1,22 +1,37 @@
-import Nome from './components/Nome'
 import { useState } from 'react';
+
+import Nome from './components/Nome'
+import BemVindo from './components/BemVindo';
+import Formulario from './components/Formulario';
 
 function App() {
   const [aluno, setAluno] = useState('Sujeito Programador');
+  const [nome, setNome] = useState('');
+
+  const [user, setUser] = useState({})
 
   function handlerChangeName(name) {
     setAluno(name)
   }
 
+  function handleRegister(e) {
+    e.preventDefault()
+    console.log('Registrado nome:', nome)
+
+    setUser({
+      nome: nome
+    })
+  }
+
   return (
     <div>
-      <h1>Bem vindo</h1>
-      <h2>Olá: {aluno}</h2>
+      <BemVindo aluno={aluno} handlerChangeName={handlerChangeName} />
       <Nome aluno="Eduardo" />
+      <Formulario nome={nome} setNome={setNome} handleRegister={handleRegister} />
 
-      <button onClick={ () => handlerChangeName('Eduardo césar')}>
-          Mudar nome
-      </button>
+      <div>
+        <span>Nome: {user.nome}</span>
+      </div>
     </div>
   );
 }
